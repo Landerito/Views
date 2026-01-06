@@ -76,3 +76,14 @@ button {
   border-radius: 30px;
   cursor: pointer;
 }
+
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.note {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
