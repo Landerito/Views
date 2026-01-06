@@ -38,3 +38,27 @@ button {
 button:hover {
   opacity: 0.9;
 }
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.section {
+  max-width: 600px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.section h2 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.section ul {
+  padding-left: 20px;
+}
+
+.section li {
+  margin-bottom: 8px;
+}
