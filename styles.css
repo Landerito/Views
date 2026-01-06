@@ -62,3 +62,17 @@ button:hover {
 .section li {
   margin-bottom: 8px;
 }
+
+.section {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+button {
+  margin-top: 30px;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
