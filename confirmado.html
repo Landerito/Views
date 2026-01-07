@@ -8,26 +8,59 @@
 </head>
 <body>
 
-  <div class="container">
-  <h1>✅ Compra confirmada</h1>
+<div class="container">
 
-<p>
-  Gracias por comprar tu ticket para <strong>Views</strong>.
-</p>
+  <!-- Logo -->
+  <img src="images/logo.png" alt="Logo Views" class="logo">
 
-<p>
-  Tu pago fue procesado correctamente y tu espacio en el evento
-  está oficialmente reservado.
-</p>
+  <!-- Mensaje de confirmación -->
+  <h1>✅ Compra Confirmada</h1>
 
-<p>
-  📩 Hemos enviado un comprobante de pago a tu correo electrónico.
-</p>
+  <p>
+    Gracias por comprar tu ticket para <strong>Views</strong>.
+  </p>
 
-<p>
-  Nos vemos pronto 🚀
-</p>
+  <p>
+    Tu pago fue procesado correctamente y tu espacio en el evento
+    está oficialmente reservado.
+  </p>
+
+  <p>
+    📩 Hemos enviado un comprobante de pago a tu correo electrónico.
+  </p>
+
+  <p>
+    Nos vemos pronto 🚀
+  </p>
+
+  <!-- QR del ticket -->
+  <div class="qr-section">
+    <h3>Escanea tu código QR para ingresar al evento</h3>
+    <div id="qrCode"></div>
   </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2026 Views. Todos los derechos reservados.</p>
+</footer>
+
+<!-- QRCode.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  // Reemplaza este enlace por el ticket único de cada usuario
+  const ticketURL = "https://link-unico-del-ticket-del-usuario";
+
+  new QRCode(document.getElementById("qrCode"), {
+    text: ticketURL,
+    width: 200,
+    height: 200,
+    colorDark : "#0e0e0e",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+</script>
 
 </body>
 </html>
