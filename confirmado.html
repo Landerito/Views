@@ -8,28 +8,21 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container confirmation-container">
 
   <!-- Logo -->
   <img src="images/logo.png" alt="Logo Views" class="logo">
 
   <!-- Mensaje de confirmación -->
-  <h1>✅ Compra Confirmada</h1>
+  <h1 class="confirmation-title">✅ ¡Compra Confirmada!</h1>
 
-  <p>
-    Gracias por comprar tu ticket para <strong>Views</strong>.
+  <p class="confirmation-text">
+    Gracias por comprar tu ticket para <strong>Views</strong>.<br>
+    Tu pago fue procesado correctamente y tu espacio en el evento está reservado.
   </p>
 
-  <p>
-    Tu pago fue procesado correctamente y tu espacio en el evento
-    está oficialmente reservado.
-  </p>
-
-  <p>
-    📩 Hemos enviado un comprobante de pago a tu correo electrónico.
-  </p>
-
-  <p>
+  <p class="confirmation-text">
+    📩 Hemos enviado un comprobante a tu correo electrónico.<br>
     Nos vemos pronto 🚀
   </p>
 
@@ -39,6 +32,11 @@
     <div id="qrCode"></div>
   </div>
 
+  <!-- Botón para volver a la landing -->
+  <a href="index.html">
+    <button class="back-button">Volver a la página principal</button>
+  </a>
+
 </div>
 
 <!-- Footer -->
@@ -46,16 +44,16 @@
   <p>© 2026 Views. Todos los derechos reservados.</p>
 </footer>
 
-<!-- QRCode.js -->
+<!-- Librería QRCode.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // Reemplaza este enlace por el ticket único de cada usuario
+  // Reemplaza este enlace por el ticket único del usuario
   const ticketURL = "https://link-unico-del-ticket-del-usuario";
 
   new QRCode(document.getElementById("qrCode"), {
     text: ticketURL,
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
     colorDark : "#0e0e0e",
     colorLight : "#ffffff",
     correctLevel : QRCode.CorrectLevel.H
