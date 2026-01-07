@@ -48,9 +48,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-  // Obtener ticket único de la URL
   const params = new URLSearchParams(window.location.search);
-  const ticketID = params.get("ticket"); // Ej: confirmacion.html?ticket=ABC123
+  const ticketID = params.get("ticket"); 
 
   if(ticketID){
     const qrContainer = document.getElementById("qrContainer");
@@ -68,7 +67,7 @@
       correctLevel : QRCode.CorrectLevel.H
     });
 
-    // Descargar QR como imagen
+    // Descargar QR
     document.getElementById("downloadQR").addEventListener("click", function(){
       const qrCanvas = document.querySelector("#qrCode canvas");
       if(!qrCanvas) return;
@@ -78,30 +77,54 @@
       link.click();
     });
 
-    // Descargar ticket en PDF
-    document.getElementById("downloadPDF").addEventListener("click", async function(){
+    // Descargar ticket en PDF con diseño profesional
+    document.getElementById("downloadPDF").addEventListener("click", function(){
       const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "pt",
+        format: [350, 500]
+      });
+
+      // Fondo negro
+      doc.setFillColor(14,14,14);
+      doc.rect(0,0,350,500,'F');
+
+      // Borde naranja
+      doc.setDrawColor(255,106,0);
+      doc.setLineWidth(4);
+      doc.rect(10,10,330,480);
 
       // Logo
-      const logoImg = new Image();
-      logoImg.src = "images/logo.png";
-      logoImg.onload = () => {
-        doc.addImage(logoImg, 'PNG', 80, 10, 50, 50);
+      const logo = new Image();
+      logo.src = "images/logo.png";
+      logo.onload = () => {
+        doc.addImage(logo,'PNG',125,20,100,40);
 
-        // Texto del ticket
-        doc.setFontSize(16);
-        doc.text("Ticket de acceso - Views", 105, 70, null, null, 'center');
+        // Título
+        doc.setFontSize(18);
+        doc.setTextColor(255,106,0);
+        doc.setFont("helvetica","bold");
+        doc.text("TICKET VIEWS",175,80,null,null,'center');
+
+        // Texto info
         doc.setFontSize(12);
-        doc.text(`ID de Ticket: ${ticketID}`, 105, 80, null, null, 'center');
-        doc.text("Evento audiovisual creativo", 105, 90, null, null, 'center');
-        doc.text("📅 Fecha: Próximamente", 105, 100, null, null, 'center');
-        doc.text("📍 Lugar: Por confirmar", 105, 110, null, null, 'center');
+        doc.setTextColor(255,255,255);
+        doc.setFont("helvetica","normal");
+        doc.text(`ID de Ticket: ${ticketID}`,175,110,null,null,'center');
+        doc.text("Evento audiovisual creativo",175,130,null,null,'center');
+        doc.text("📅 Fecha: Próximamente",175,150,null,null,'center');
+        doc.text("📍 Lugar: Por confirmar",175,170,null,null,'center');
 
-        // QR en PDF
+        // QR
         const qrCanvas = document.querySelector("#qrCode canvas");
         const qrDataURL = qrCanvas.toDataURL("image/png");
-        doc.addImage(qrDataURL, 'PNG', 70, 120, 70, 70);
+        doc.addImage(qrDataURL,'PNG',115,200,120,120);
+
+        // Footer del ticket
+        doc.setFontSize(10);
+        doc.setTextColor(255,106,0);
+        doc.text("© 2026 Views",175,340,null,null,'center');
 
         doc.save(`ticket-${ticketID}.pdf`);
       };
@@ -111,6 +134,3 @@
     document.getElementById("qrContainer").innerHTML = "<p style='color:#ff6a00;'>⚠️ No se pudo generar el QR. Pago no confirmado.</p>";
   }
 </script>
-
-</body>
-</html>
