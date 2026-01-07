@@ -239,3 +239,124 @@ button:hover {
   background-color: #ff6a00;
   color: #ffffff;
 }
+
+/* HERO de confirmación */
+.confirmation-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* Logo */
+.confirmation-hero .logo {
+  width: 180px;
+  max-width: 80%;
+  margin-bottom: 15px;
+}
+
+/* Título */
+.confirmation-title {
+  font-size: 2.8rem;
+  margin: 20px 0;
+  color: #ff6a00;
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Texto */
+.confirmation-text {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  opacity: 0.85;
+  animation: fadeIn 1s ease-in;
+}
+
+/* QR */
+.qr-section {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.qr-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  opacity: 0.85;
+}
+
+/* QR Canvas */
+#qrCode {
+  margin: 0 auto;
+  width: 220px;
+  height: 220px;
+  border: 5px solid #ff6a00;
+  border-radius: 12px;
+}
+
+/* Botones */
+.download-button, .back-button {
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: none;
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+.download-button {
+  background-color: #0e0e0e;
+  color: #ff6a00;
+  border: 2px solid #ff6a00;
+}
+
+.download-button:hover {
+  background-color: #ff6a00;
+  color: #ffffff;
+}
+
+.back-button {
+  background-color: #ff6a00;
+  color: #ffffff;
+}
+
+.back-button:hover {
+  background-color: #e65c00;
+}
+
+/* Footer */
+.footer {
+  margin-top: 60px;
+  padding: 20px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity:0; transform: translateY(-20px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .confirmation-title {
+    font-size: 2rem;
+  }
+  #qrCode {
+    width: 180px;
+    height: 180px;
+  }
+  .download-button, .back-button {
+    width: 100%;
+  }
+}
