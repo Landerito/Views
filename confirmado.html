@@ -30,6 +30,7 @@
   <div class="qr-section">
     <h3>Escanea tu código QR para ingresar al evento</h3>
     <div id="qrCode"></div>
+    <button id="downloadQR" class="download-button">📥 Descargar QR</button>
   </div>
 
   <!-- Botón para volver a la landing -->
@@ -50,13 +51,27 @@
   // Reemplaza este enlace por el ticket único del usuario
   const ticketURL = "https://link-unico-del-ticket-del-usuario";
 
-  new QRCode(document.getElementById("qrCode"), {
+  // Generar QR
+  const qr = new QRCode(document.getElementById("qrCode"), {
     text: ticketURL,
     width: 220,
     height: 220,
     colorDark : "#0e0e0e",
     colorLight : "#ffffff",
     correctLevel : QRCode.CorrectLevel.H
+  });
+
+  // Función para descargar QR como imagen
+  document.getElementById("downloadQR").addEventListener("click", function() {
+    // Encontrar el canvas generado por QRCode.js
+    const qrCanvas = document.querySelector("#qrCode canvas");
+    if (!qrCanvas) return;
+
+    // Crear enlace de descarga
+    const link = document.createElement("a");
+    link.href = qrCanvas.toDataURL("image/png");
+    link.download = "ticket-views.png";
+    link.click();
   });
 </script>
 
