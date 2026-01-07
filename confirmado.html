@@ -13,7 +13,7 @@
   <!-- Logo -->
   <img src="images/logo.png" alt="Logo Views" class="logo">
 
-  <!-- Mensaje de confirmación -->
+  <!-- Mensaje -->
   <h1 class="confirmation-title">✅ ¡Compra Confirmada!</h1>
   <p class="confirmation-text">
     Gracias por comprar tu ticket para <strong>Views</strong>.<br>
@@ -29,22 +29,24 @@
     <h3>Escanea tu código QR para ingresar al evento</h3>
     <div id="qrCode"></div>
     <button id="downloadQR" class="download-button">📥 Descargar QR</button>
+    <button id="downloadPDF" class="download-button">📄 Descargar Ticket en PDF</button>
   </div>
 
-  <!-- Botón para volver a la landing -->
+  <!-- Botón para volver -->
   <a href="index.html">
     <button class="back-button">Volver a la página principal</button>
   </a>
 
 </div>
 
-<!-- Footer -->
 <footer class="footer">
   <p>© 2026 Views. Todos los derechos reservados.</p>
 </footer>
 
-<!-- Librería QRCode.js -->
+<!-- Librerías -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
   // Obtener ticket único de la URL
   const params = new URLSearchParams(window.location.search);
@@ -66,7 +68,7 @@
       correctLevel : QRCode.CorrectLevel.H
     });
 
-    // Descargar QR
+    // Descargar QR como imagen
     document.getElementById("downloadQR").addEventListener("click", function(){
       const qrCanvas = document.querySelector("#qrCode canvas");
       if(!qrCanvas) return;
@@ -75,6 +77,36 @@
       link.download = `ticket-${ticketID}.png`;
       link.click();
     });
+
+    // Descargar ticket en PDF
+    document.getElementById("downloadPDF").addEventListener("click", async function(){
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Logo
+      const logoImg = new Image();
+      logoImg.src = "images/logo.png";
+      logoImg.onload = () => {
+        doc.addImage(logoImg, 'PNG', 80, 10, 50, 50);
+
+        // Texto del ticket
+        doc.setFontSize(16);
+        doc.text("Ticket de acceso - Views", 105, 70, null, null, 'center');
+        doc.setFontSize(12);
+        doc.text(`ID de Ticket: ${ticketID}`, 105, 80, null, null, 'center');
+        doc.text("Evento audiovisual creativo", 105, 90, null, null, 'center');
+        doc.text("📅 Fecha: Próximamente", 105, 100, null, null, 'center');
+        doc.text("📍 Lugar: Por confirmar", 105, 110, null, null, 'center');
+
+        // QR en PDF
+        const qrCanvas = document.querySelector("#qrCode canvas");
+        const qrDataURL = qrCanvas.toDataURL("image/png");
+        doc.addImage(qrDataURL, 'PNG', 70, 120, 70, 70);
+
+        doc.save(`ticket-${ticketID}.pdf`);
+      };
+    });
+
   } else {
     document.getElementById("qrContainer").innerHTML = "<p style='color:#ff6a00;'>⚠️ No se pudo generar el QR. Pago no confirmado.</p>";
   }
