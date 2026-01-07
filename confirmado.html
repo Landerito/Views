@@ -13,66 +13,74 @@
   <!-- Logo -->
   <img src="images/logo.png" alt="Logo Views" class="logo">
 
-  <!-- Mensaje de confirmación -->
+  <!-- Mensaje -->
   <h1 class="confirmation-title">✅ ¡Compra Confirmada!</h1>
-
   <p class="confirmation-text">
     Gracias por comprar tu ticket para <strong>Views</strong>.<br>
     Tu pago fue procesado correctamente y tu espacio en el evento está reservado.
   </p>
-
   <p class="confirmation-text">
     📩 Hemos enviado un comprobante a tu correo electrónico.<br>
     Nos vemos pronto 🚀
   </p>
 
   <!-- QR del ticket -->
-  <div class="qr-section">
+  <div class="qr-section" style="display:none;" id="qrContainer">
     <h3>Escanea tu código QR para ingresar al evento</h3>
     <div id="qrCode"></div>
     <button id="downloadQR" class="download-button">📥 Descargar QR</button>
   </div>
 
-  <!-- Botón para volver a la landing -->
+  <!-- Botón para volver -->
   <a href="index.html">
     <button class="back-button">Volver a la página principal</button>
   </a>
 
 </div>
 
-<!-- Footer -->
 <footer class="footer">
   <p>© 2026 Views. Todos los derechos reservados.</p>
 </footer>
 
-<!-- Librería QRCode.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // Reemplaza este enlace por el ticket único del usuario
-  const ticketURL = "https://link-unico-del-ticket-del-usuario";
+  // ---------------------------
+  // 1. Obtener datos del pago desde URL (Stripe Checkout Success)
+  // Por ejemplo: confirmacion.html?ticket=UNIQUE_ID
+  // ---------------------------
+  const params = new URLSearchParams(window.location.search);
+  const ticketID = params.get("ticket"); // ID único del ticket generado por Stripe
 
-  // Generar QR
-  const qr = new QRCode(document.getElementById("qrCode"), {
-    text: ticketURL,
-    width: 220,
-    height: 220,
-    colorDark : "#0e0e0e",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-  });
+  if(ticketID) {
+    // Mostrar el contenedor del QR
+    document.getElementById("qrContainer").style.display = "block";
 
-  // Función para descargar QR como imagen
-  document.getElementById("downloadQR").addEventListener("click", function() {
-    // Encontrar el canvas generado por QRCode.js
-    const qrCanvas = document.querySelector("#qrCode canvas");
-    if (!qrCanvas) return;
+    // Crear URL del ticket seguro
+    const ticketURL = `https://tu-sitio.com/tickets/${ticketID}`;
 
-    // Crear enlace de descarga
-    const link = document.createElement("a");
-    link.href = qrCanvas.toDataURL("image/png");
-    link.download = "ticket-views.png";
-    link.click();
-  });
+    // Generar QR
+    const qr = new QRCode(document.getElementById("qrCode"), {
+      text: ticketURL,
+      width: 220,
+      height: 220,
+      colorDark : "#0e0e0e",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+
+    // Función para descargar QR
+    document.getElementById("downloadQR").addEventListener("click", function() {
+      const qrCanvas = document.querySelector("#qrCode canvas");
+      if (!qrCanvas) return;
+      const link = document.createElement("a");
+      link.href = qrCanvas.toDataURL("image/png");
+      link.download = `ticket-${ticketID}.png`;
+      link.click();
+    });
+  } else {
+    // No hay ticket: mostrar mensaje de error
+    document.querySelector(".qr-section").innerHTML = "<p style='color:#ff6a00;'>⚠️ No se pudo generar el QR. Pago no confirmado.</p>";
+  }
 </script>
 
 </body>
