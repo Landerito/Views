@@ -360,3 +360,20 @@ button:hover {
     width: 100%;
   }
 }
+
+#downloadPDF {
+  background-color: #0e0e0e;
+  color: #ff6a00;
+  border: 2px solid #ff6a00;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+#downloadPDF:hover {
+  background-color: #ff6a00;
+  color: #ffffff;
+}
