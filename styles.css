@@ -377,3 +377,17 @@ button:hover {
   background-color: #ff6a00;
   color: #ffffff;
 }
+
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centra horizontalmente todas las sections */
+  text-align: center;    /* centra texto dentro de cada section */
+  max-width: 700px;
+  margin: 0 auto;        /* centra el contenedor en la página */
+  gap: 20px;             /* separación entre los bloques */
+}
+
+.ticket-container .section {
+  text-align: center;    /* asegura que cada sección tenga texto centrado */
+}
